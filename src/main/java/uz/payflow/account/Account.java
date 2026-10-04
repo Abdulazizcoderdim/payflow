@@ -19,8 +19,9 @@ public class Account {
     @Column(name = "owner_name", nullable = false, length = 100)
     private String ownerName;
 
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, length = 3)
-    private String currency;
+    private Currency currency;
 
     @Column(nullable = false, precision = 19, scale = 2)
     private BigDecimal balance;
@@ -31,7 +32,7 @@ public class Account {
     protected Account() {
     }
 
-    public Account(String number, String ownerName, String currency) {
+    public Account(String number, String ownerName, Currency currency) {
         this.number = number;
         this.ownerName = ownerName;
         this.currency = currency;
@@ -51,7 +52,7 @@ public class Account {
         return ownerName;
     }
 
-    public String getCurrency() {
+    public Currency getCurrency() {
         return currency;
     }
 
