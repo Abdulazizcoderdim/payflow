@@ -21,6 +21,11 @@ public class AccountController {
         return  AccountResponse.from(account);
     }
 
+    @PostMapping("/{id}/deposits")
+    public AccountResponse deposit(@PathVariable Long id, @Valid @RequestBody DepositRequest request) {
+        return AccountResponse.from(accountService.deposit(id, request.amount()));
+    }
+
     @GetMapping("/{id}")
     public AccountResponse getById(@PathVariable Long id) {
         return AccountResponse.from(accountService.getById(id));

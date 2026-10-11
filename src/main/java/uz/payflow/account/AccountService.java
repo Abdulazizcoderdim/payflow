@@ -3,6 +3,8 @@ package uz.payflow.account;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
+
 @Service
 public class AccountService {
 
@@ -24,6 +26,14 @@ public class AccountService {
     public Account getById(Long id) {
         return accountRepository.findById(id).orElseThrow(() -> new AccountNotFoundException(id));
     }
+
+    @Transactional
+    public Account deposit(Long id, BigDecimal amount) {
+        Account account = accountRepository.findByIdForUpdate(id).orElseThrow(() -> new AccountNotFoundException(id));
+        account.credit(amount);
+        return account;
+    }
+
 
     private String generateNumber(Currency currency) {
         long sequence = accountRepository.nextNumberSequence();

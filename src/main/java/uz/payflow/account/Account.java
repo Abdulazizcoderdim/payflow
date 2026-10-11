@@ -40,6 +40,17 @@ public class Account {
         this.createdAt = Instant.now();
     }
 
+    public void credit(BigDecimal amount) {
+        this.balance = this.balance.add(amount);
+    }
+
+    public void debit(BigDecimal amount) {
+        if (balance.compareTo(amount) < 0) {
+            throw new InsufficientFundsException(number);
+        }
+        this.balance = this.balance.subtract(amount);
+    }
+
     public Long getId() {
         return id;
     }
